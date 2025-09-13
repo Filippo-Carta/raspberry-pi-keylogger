@@ -31,24 +31,45 @@ A simple Python-based keylogger designed for use on a Raspberry Pi. It captures 
    cd raspberry-pi-keylogger
    ```
 
-2. **(Optional) Set up a virtual environment:**
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies:**
+2. **Install dependencies:**
 
    ```bash
    pip install keyboard
    ```
 
-4. **Make the main script executable (optional):**
+3. **Make the main script executable (optional):**
 
    ```bash
    chmod +x main.py main.sh
    ```
+
+4. **Add configs:**
+
+   ```bash
+   sudo nano /boot/firmware/cmdline.txt
+   ```
+   Add this after "rootwait":
+   ```txt
+   modules-load=dwc2,g_hid
+   ```
+   Should look something like this:
+   ```txt
+   ... fsck.repair=yes rootwait modules-load=dwc2,g_hid quiet splash p ...
+   ```
+   Then edit this file:
+   ```bash
+   sudo nano /boot/firmware/cmdline.txt
+   ```
+   and add:
+   ```bash
+   [cm5]
+   dtoverlay=dwc2
+
+   [all]
+   dtoverlay=dwc2
+   ```
+   
+   #Installation completed!
 
 ---
 
