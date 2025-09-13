@@ -75,17 +75,19 @@ A simple Python-based keylogger designed for use on a Raspberry Pi. It captures 
 
 ## Running the Keylogger
 
+To set things app run:
+
+```bash
+sudo bash main.sh
+```
+
 To run the logger manually:
 
 ```bash
 sudo python3 main.py
 ```
 
-Or using the shell script:
 
-```bash
-sudo bash main.sh
-```
 
 ---
 
