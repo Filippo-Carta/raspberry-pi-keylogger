@@ -1,6 +1,6 @@
 # Raspberry Pi Keylogger
 
-A simple Python-based keylogger designed for use on a Raspberry Pi. It captures keyboard input from One of the 4 usb-a porta of Raspberry pi 4, sends the keys from the usb-c porta to the computer, that Power It at the same time, and save the typed keys review.
+A simple Python-based keylogger designed for use on a Raspberry Pi. It captures keyboard input from One of the 4 usb-a ports of Raspberry pi 4, sends the keys from the usb-c port to the computer, that Power It at the same time, and save the typed keys review.
 
 ---
 
