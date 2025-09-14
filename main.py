@@ -118,7 +118,7 @@ class HIDKeyboard:
         self.write_report(report)
 
     def release_keys(self):
-        self.write_report(bytearray(8))  # Send 0s to release
+        self.write_report(bytearray(8))
 
     def press_character(self, char, extra_modifiers=[]):
         char = SPECIAL_KEY_ALIASES.get(char, char)
@@ -244,7 +244,7 @@ kb.on_release(on_release)
 import signal
 
 def handler(signum, frame):
-    print("Ctrl+C ignorato!")
+    print("Ctrl+C ignored.")
 
 signal.signal(signal.SIGINT, handler)
 signal.signal(signal.SIGTSTP, handler) 
