@@ -19,42 +19,22 @@ MODIFIERS = {
 MODIFIER_KEYS = {
     'left ctrl': 'LeftCtrl',
     'right ctrl': 'RightCtrl',
+    'ctrl': 'LeftCtrl',
     'left shift': 'LeftShift',
     'right shift': 'RightShift',
+    'shift': 'LeftShift',
     'left alt': 'LeftAlt',
     'right alt': 'RightAlt',
+    'alt': 'LeftAlt',
     'left windows': 'LeftGUI',
     'right windows': 'RightGUI',
+    'windows': 'LeftGUI',
+    'command': 'LeftGUI',
 }
 
 CHARACTER_KEYCODES = {
-    'a': (0x04, False), 'A': (0x04, True),
-    'b': (0x05, False), 'B': (0x05, True),
-    'c': (0x06, False), 'C': (0x06, True),
-    'd': (0x07, False), 'D': (0x07, True),
-    'e': (0x08, False), 'E': (0x08, True),
-    'f': (0x09, False), 'F': (0x09, True),
-    'g': (0x0A, False), 'G': (0x0A, True),
-    'h': (0x0B, False), 'H': (0x0B, True),
-    'i': (0x0C, False), 'I': (0x0C, True),
-    'j': (0x0D, False), 'J': (0x0D, True),
-    'k': (0x0E, False), 'K': (0x0E, True),
-    'l': (0x0F, False), 'L': (0x0F, True),
-    'm': (0x10, False), 'M': (0x10, True),
-    'n': (0x11, False), 'N': (0x11, True),
-    'o': (0x12, False), 'O': (0x12, True),
-    'p': (0x13, False), 'P': (0x13, True),
-    'q': (0x14, False), 'Q': (0x14, True),
-    'r': (0x15, False), 'R': (0x15, True),
-    's': (0x16, False), 'S': (0x16, True),
-    't': (0x17, False), 'T': (0x17, True),
-    'u': (0x18, False), 'U': (0x18, True),
-    'v': (0x19, False), 'V': (0x19, True),
-    'w': (0x1A, False), 'W': (0x1A, True),
-    'x': (0x1B, False), 'X': (0x1B, True),
-    'y': (0x1C, False), 'Y': (0x1C, True),
-    'z': (0x1D, False), 'Z': (0x1D, True),
-
+    **{chr(i): (0x04 + i - ord('a'), False) for i in range(ord('a'), ord('z')+1)},
+    **{chr(i).upper(): (0x04 + i - ord('a'), True) for i in range(ord('a'), ord('z')+1)},
     '1': (0x1E, False), '!': (0x1E, True),
     '2': (0x1F, False), '@': (0x1F, True),
     '3': (0x20, False), '#': (0x20, True),
@@ -65,7 +45,6 @@ CHARACTER_KEYCODES = {
     '8': (0x25, False), '*': (0x25, True),
     '9': (0x26, False), '(': (0x26, True),
     '0': (0x27, False), ')': (0x27, True),
-
     ' ': (0x2C, False),
     '-': (0x2D, False), '_': (0x2D, True),
     '=': (0x2E, False), '+': (0x2E, True),
@@ -78,11 +57,46 @@ CHARACTER_KEYCODES = {
     ',': (0x36, False), '<': (0x36, True),
     '.': (0x37, False), '>': (0x37, True),
     '/': (0x38, False), '?': (0x38, True),
-
-    '\n': (0x28, False),  # Enter
-    '\t': (0x2B, False),  # Tab
+    '\n': (0x28, False), 'enter': (0x28, False),
+    '\t': (0x2B, False), 'tab': (0x2B, False),
     'backspace': (0x2A, False),
-    'esc': (0x29, False)
+    'esc': (0x29, False), 'escape': (0x29, False),
+    'delete': (0x4C, False),
+    'insert': (0x49, False),
+    'home': (0x4A, False),
+    'end': (0x4D, False),
+    'page up': (0x4B, False),
+    'page down': (0x4E, False),
+    'arrow up': (0x52, False), 'up': (0x52, False),
+    'arrow down': (0x51, False), 'down': (0x51, False),
+    'arrow left': (0x50, False), 'left': (0x50, False),
+    'arrow right': (0x4F, False), 'right': (0x4F, False),
+    'caps lock': (0x39, False),
+    'pause': (0x48, False), 'break': (0x48, False), 'pause/break': (0x48, False),
+}
+
+for i in range(1, 13):
+    CHARACTER_KEYCODES[f'f{i}'] = (0x3A + (i - 1), False)
+    CHARACTER_KEYCODES[f'F{i}'] = (0x3A + (i - 1), False)
+
+NUMPAD = {
+    'numpad 0': (0x62, False), 'numpad 1': (0x59, False), 'numpad 2': (0x5A, False), 'numpad 3': (0x5B, False),
+    'numpad 4': (0x5C, False), 'numpad 5': (0x5D, False), 'numpad 6': (0x5E, False), 'numpad 7': (0x5F, False),
+    'numpad 8': (0x60, False), 'numpad 9': (0x61, False),
+    'numpad .': (0x63, False), 'numpad enter': (0x58, False),
+    'numpad +': (0x57, False), 'numpad -': (0x56, False),
+    'numpad *': (0x55, False), 'numpad /': (0x54, False),
+}
+CHARACTER_KEYCODES.update(NUMPAD)
+
+SPECIAL_KEY_ALIASES = {
+    'cancel': 'pause',
+    'pause/break': 'pause',
+    'return': 'enter',
+    'del': 'delete',
+    'ins': 'insert',
+    'pgup': 'page up',
+    'pgdn': 'page down',
 }
 
 # ----------------------------
@@ -99,14 +113,15 @@ class HIDKeyboard:
 
     def press_key(self, keycode, modifiers=0):
         report = bytearray(8)
-        report[0] = modifiers      # Modifier byte
-        report[2] = keycode        # Keycode (first key)
+        report[0] = modifiers
+        report[2] = keycode
         self.write_report(report)
 
     def release_keys(self):
         self.write_report(bytearray(8))  # Send 0s to release
 
     def press_character(self, char, extra_modifiers=[]):
+        char = SPECIAL_KEY_ALIASES.get(char, char)
         if char not in CHARACTER_KEYCODES:
             print(f"[!] Unsupported character: {repr(char)}")
             return
@@ -123,33 +138,45 @@ class HIDKeyboard:
         time.sleep(0.05)
         self.release_keys()
 
+    def press_modifier(self, mod_name):
+        if mod_name not in MODIFIERS:
+            print(f"[!] Unsupported modifier: {mod_name}")
+            return
+        report = bytearray(8)
+        report[0] = MODIFIERS[mod_name]
+        self.write_report(report)
+        time.sleep(0.05)
+        self.release_keys()
+
 # ----------------------------
 # Real-Time Key Processing
 # ----------------------------
 
 keyboard = HIDKeyboard()
 pressed_modifiers = set()
-
-# Manual state
-shift_active_once = False
 caps_lock_active = False
 
 def on_press(event):
-    global shift_active_once, caps_lock_active
+    global caps_lock_active
 
     key = event.name.lower()
-    with open('logs.txt', 'a') as f:
-        f.write(f"{key}\n")
     print(key)
-    # Handle modifier keys
-    if key == 'shift':
-        shift_active_once = True
+
+    # Handle Caps Lock toggle
     if key == 'caps lock':
         caps_lock_active = not caps_lock_active
         print(f"[Caps Lock] {'ON' if caps_lock_active else 'OFF'}")
         return
 
-    # Special keys
+    # Handle modifier keys: Shift and Alt are added on press
+    if key in MODIFIER_KEYS:
+        mod = MODIFIER_KEYS[key]
+        pressed_modifiers.add(mod)
+        keyboard.press_modifier(mod)
+        return
+
+    # Map aliases and whitespace
+    char = SPECIAL_KEY_ALIASES.get(key, key)
     if key == 'space':
         char = ' '
     elif key == 'enter':
@@ -160,16 +187,19 @@ def on_press(event):
         char = 'backspace'
     elif key == 'esc':
         char = 'esc'
+    elif key in NUMPAD:
+        char = key
     elif len(key) == 1:
-        # Apply caps lock or shift
+        # Letter or symbol
         if key.isalpha():
-            if caps_lock_active or shift_active_once:
+            shift_active = 'LeftShift' in pressed_modifiers or 'RightShift' in pressed_modifiers
+            if caps_lock_active ^ shift_active:
                 char = key.upper()
             else:
                 char = key.lower()
         else:
-            # For symbols, try to get the shifted version if shift is active
-            if shift_active_once:
+            shift_active = 'LeftShift' in pressed_modifiers or 'RightShift' in pressed_modifiers
+            if shift_active:
                 for ch, (code, shifted) in CHARACTER_KEYCODES.items():
                     base_code = CHARACTER_KEYCODES.get(key, (None, None))[0]
                     if shifted and base_code == code:
@@ -179,29 +209,47 @@ def on_press(event):
                     char = key
             else:
                 char = key
-    else:
-        return
 
-    print(f"Sending: {repr(char)} (ShiftOnce: {shift_active_once}, CapsLock: {caps_lock_active})")
-    keyboard.press_character(char)
+    print(f"Sending: {repr(char)} (CapsLock: {caps_lock_active}, Modifiers: {pressed_modifiers})")
 
-    # Clear one-time shift
-    shift_active_once = False
+    with open('logs.txt', 'a') as f:
+        f.write(f"{repr(char)}\n")
+
+    keyboard.press_character(char, list(pressed_modifiers))
+    if "LeftShift" in pressed_modifiers:
+        pressed_modifiers.remove("LeftShift")
+    elif "RightShift" in pressed_modifiers:
+        pressed_modifiers.remove("RightShift")
+    elif "LeftCtrl" in pressed_modifiers: 
+        pressed_modifiers.remove("LeftCtrl")
+    elif "RightCtrl" in pressed_modifiers:
+        pressed_modifiers.remove("RightCtrl")
+    elif "LeftAlt" in pressed_modifiers:
+        pressed_modifiers.remove("LeftAlt")
+    elif "RightAlt" in pressed_modifiers:
+        pressed_modifiers.remove("RightAlt")
 
 def on_release(event):
     key = event.name.lower()
     if key in MODIFIER_KEYS:
         mod = MODIFIER_KEYS[key]
-        pressed_modifiers.discard(mod)
+        if mod in pressed_modifiers:
+            pressed_modifiers.discard(mod)
+            keyboard.release_keys()
 
-# ----------------------------
-# Start Real-Time Listening
-# ----------------------------
-
-print("🔴 Live USB HID Keyboard Emulation Started. Waiting for the time running out.")
+print("🔴 Live USB HID Keyboard Emulation Started.")
 kb.on_press(on_press)
 kb.on_release(on_release)
 
-# Block until the time runs out is pressed
-time.sleep(999999)
-print("🛑 Stopped.")
+import signal
+
+def handler(signum, frame):
+    print("Ctrl+C ignorato!")
+
+signal.signal(signal.SIGINT, handler)
+signal.signal(signal.SIGTSTP, handler) 
+try:
+    while True:
+        time.sleep(1)
+except Exception as e:
+    print(f"Errore: {e}")
